@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+    <!-- Page template for displaying Brands -->
+    <template id="product_brands" name="Brands">
+        <t t-call="website.layout">
+            <t t-if="current_country and check=='/country_defined'">
+                <div class="page-header products_pager">
+                    <h1>Fair Market <a t-att-href="keep('/%s' % (current_country.name))"><t t-esc="current_country.name"/></a>
+                        <p>
+                            <small>FairCoop Marketplace for The Fair Economy</small>
+                        </p>
+                    </h1>
+                </div>
+            </t>
+            <t t-set="additional_title">Companies</t>
+            <div id="wrap" t-attf-class="wrapper">
+                <div class="container products_pager">
+                    <div class="row" style="width: 100%;">
+                        <form t-att-action="keep('/shop'+ (('/country/'+slug(current_country)) if current_country else '') + (('/category/'+slug(category)) if category else '') + (('/country_defined') if check else ''), search=0)" method="get" t-att-class="search_class">
+
+                            <div class="input-group" style="margin-left:40%;">
+                                <div class='col-md-6'>
+                                    <input type="text" name="search" class="form-control" placeholder="Search..." t-att-value='search'/>
+                                </div>
+                                <div class='col-md-2'>
+                                    <button class="btn btn-primary">Search</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <br/>
+                    <div class="row" style="width: 100%;">
+                        <div class="input-group" style="margin-left:40%">
+                            <div class="navbar">
+                                <t t-call="website.pager">
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+                    <section>
+                    <t t-if='not check'>
+                        <div class="col-md-3 mb32" id="partner_left">
+
+                                <ul id="reseller_countries" class="nav nav-pills nav-stacked mt16">
+                                    <li class="nav-header"><h3>Filter by Country</h3></li>
+                                    <t t-foreach="countries" t-as="country">
+                                        <li t-if="country['country_id']" t-att-class="country['active'] and 'active' or ''">
+                                            <a t-attf-href="/shops#{ current_grade and '/grade/%s' % slug(current_grade) or ''}#{country['country_id'][0] and '/country/%s' % country['country_id'][0] or '' }#{ '?' + (search_path or '') + (country['country_id'][0] == 0 and '&amp;country_all=True' or '')}">
+                                                <span class="badge pull-right" t-esc="country['country_id_count'] or ''"/>
+                                                <t t-esc="country['country_id'][1]"/>
+                                            </a>
+                                        </li>
+                                    </t>
+                                </ul>
+                        </div>
+                    </t>
+                        <t t-if='not countries'>
+                            <div class="text-center text-muted">
+                                <h3 class="css_editable_display">No Countries Found</h3>
+                            </div>
+                        </t>
+                        <t t-if='brand_rec'>
+                            <t t-foreach="brand_rec" t-as="o">
+                                <t t-if="check">
+                                    <div class="col-md-3" style="display: inline-block;">
+                                    <a t-attf-href="/shop#{check}#{ '/country/%s' % slug(current_country) or '' }/brands?brand=#{o.id}">
+                                        <div class='row'>
+                                            <img itemprop="image" width="200px" height="200px" class="img" t-attf-src="/website/image/product.brand/#{o.id}/logo#{'?max_width=300&amp;max_height=300'}"/>
+                                        </div>
+                                        <div class='row' style='text-align:center;'>
+                                            <t t-esc='o.name' />
+                                        </div>
+                                    </a>
+                                    <p><t t-esc="o.company_id.partner_id.name"/></p>
+                                    </div>
+                                </t>
+                                <t t-if="not check">
+                                    <div class="col-md-3" style="display: inline-block;">
+                                        <a t-att-href="keep('/shop/brands',brand = o.id)">
+                                            <div class='row'>
+                                                <img itemprop="image" width="200px" height="200px" class="img" t-attf-src="/website/image/product.brand/#{o.id}/logo#{'?max_width=300&amp;max_height=300'}"/>
+                                            </div>
+                                            <div class='row' style='text-align:center;'>
+                                                <t t-esc='o.name' />
+                                            </div>
+                                        </a>
+                                        <p><a t-attf-href="/partners/#{o.company_id.partner_id.id}"><t t-esc="o.company_id.partner_id.name"/></a> - <t t-esc="o.company_id.partner_id.country_id.name"/></p>
+                                    </div>
+                                </t>
+                            </t>
+                        </t>
+                        <t t-if='not brand_rec'>
+                            <div class="text-center text-muted">
+                                <h3 class="css_editable_display">No Brands Found</h3>
+                            </div>
+                        </t>
+
+                    </section>
+                    <div class="row" style="width: 100%;">
+                        <div class="input-group" style="margin-left:40%">
+                            <div class="navbar">
+                                <t t-call="website.pager">
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+    <template id="ref_country" inherit_id="website_product_brand.product_brands" customize_show="True" name="Left World Map">
+        <xpath expr="//ul[@id='reseller_countries']" position="after">
+            <t t-if='not check'>
+            <!-- modal for large map -->
+            <div class="modal fade shop_map_modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            <h4 class="modal-title">Companies World Map</h4>
+                        </div>
+                        <iframe t-attf-src="/google_map/?width=898&amp;height=485&amp;partner_ids=#{ google_map_shop_ids }&amp;partner_url=/partners/"
+                                style="width:898px; height:485px; border:0; padding:0; margin:0;"></iframe>
+                    </div>
+                </div>
+            </div>
+            <!-- modal end -->
+            <h3>Companies World Map<button class="btn btn-link" data-toggle="modal" data-target=".shop_map_modal"><span class="fa fa-external-link" /></button></h3>
+            <ul class="nav">
+                <iframe t-attf-src="/google_map?width=260&amp;height=240&amp;partner_ids=#{ google_map_shop_ids }&amp;partner_url=/partners/"
+                        style="width:260px; height:240px; border:0; padding:0; margin:0;" scrolling="no"></iframe>
+            </ul>
+            </t>
+        </xpath>
+    </template>
+    <template id="countries_link" name="Countries">
+        <t t-call="website.layout">
+            <t t-if="country">
+                <div class="page-header products_pager">
+                    <h1>Fair Market <t t-esc="country['name']" />
+                        <p>
+                            <small>FairCoop Marketplace for The Fair Economy</small>
+                        </p>
+                    </h1>
+                </div>
+                <ul>
+                    <li>
+                        <h2><a t-attf-href="/shop#{ country['id'] and '/country/%s' % country['id'] or ''  }/country_defined">All Products</a></h2>
+                    </li>
+                    <li>
+                        <h2><a t-attf-href="/shops/#{ 'country/%s' % slug(country)}/country_defined">Shop By Partner</a></h2>
+                    </li>
+                </ul>
+            </t>
+            <t t-if='not country'>
+                <div class="text-center text-muted">
+                    <h1 class="css_editable_display">No Countries Found</h1>
+                    <a href="/">Go to FairMarket Global</a>
+                </div>
+            </t>
+        </t>
+    </template>
+    <template id="countries_market" name="CountriesTotal">
+        <t t-call="website.layout">
+            <div class="page-header products_pager">
+                <h1>Regional Markets
+                    <p>
+                        <small>FairCoop Marketplace for The Fair Economy</small>
+                    </p>
+                </h1>
+            </div>
+            <t t-foreach="countries_total" t-as="country">
+                <li t-if="country['country_id']" t-att-class="country['active'] and 'active' or ''" >
+                    <a t-attf-href="/#{country['country_id'][1]}">
+                        <t t-esc="country['country_id'][1]"/>
+                    </a>
+                </li>
+            </t>
+        </t>
+    </template>
+    <!-- Menu in website for Brand -->
+    <record id="menu_website_sale_shop" model="website.menu">
+        <field name="name">Shop All</field>
+        <field name="url">/shop</field>
+        <field name="parent_id" ref="website_sale.menu_shop" />
+    </record>
+
+    <record id="menu_website_sale_brand" model="website.menu">
+        <field name="name">Shop by Partner</field>
+        <field name="url">/shops</field>
+        <field name="parent_id" ref="website_sale.menu_shop" />
+    </record>
+
+    </data>
+
+</openerp>
