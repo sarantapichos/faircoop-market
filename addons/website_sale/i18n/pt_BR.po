@@ -1,42 +1,42 @@
-# Translation of Odoo Server.
-# This file contains the translation of the following modules:
-# * website_sale
-# 
-# Translators:
-# danimaribeiro <danimaribeiro@gmail.com>, 2015
+# Brazilian Portuguese translation for openobject-addons
+# Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
+# This file is distributed under the same license as the openobject-addons package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo 8.0\n"
-"Report-Msgid-Bugs-To: \n"
+"Project-Id-Version: openobject-addons\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-01-21 14:09+0000\n"
-"PO-Revision-Date: 2015-07-11 03:57+0000\n"
-"Last-Translator: danimaribeiro <danimaribeiro@gmail.com>\n"
-"Language-Team: Portuguese (Brazil) (http://www.transifex.com/p/odoo-8/language/pt_BR/)\n"
+"PO-Revision-Date: 2014-09-19 10:40+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Brazilian Portuguese <pt_BR@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
-"Language: pt_BR\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2015-01-22 08:32+0000\n"
+"X-Generator: Launchpad (build 17306)\n"
 
 #. module: website_sale
-#: view:website:website_sale.cart view:website:website_sale.products_item
+#: view:website:website_sale.cart
+#: view:website:website_sale.products_item
 msgid "&nbsp;"
-msgstr "&nbsp;"
+msgstr ""
 
 #. module: website_sale
 #: view:website:website_sale.products
 msgid "'Content'"
-msgstr "'Conteúdo'"
+msgstr ""
 
 #. module: website_sale
 #: view:website:website_sale.checkout
 msgid "-- Create a new address --"
-msgstr "-- Criar um novo endereço --"
+msgstr ""
 
 #. module: website_sale
 #: view:website:website_sale.product
 msgid "30-day money-back guarantee"
-msgstr "30 dias dinheiro de volta garantido"
+msgstr ""
 
 #. module: website_sale
 #: model:ir.actions.act_window,help:website_sale.product_public_category_action
@@ -57,45 +57,47 @@ msgstr ""
 #. module: website_sale
 #: field:product.template,accessory_product_ids:0
 msgid "Accessory Products"
-msgstr "Produtos acessórios"
+msgstr ""
 
 #. module: website_sale
-#: view:website:website_sale.cart view:website:website_sale.product
+#: view:website:website_sale.cart
+#: view:website:website_sale.product
 msgid "Add to Cart"
-msgstr "Adicionar ao carrinho"
+msgstr ""
 
 #. module: website_sale
 #: view:website:website_sale.products
 msgid "All Products"
-msgstr "Todos os produtos"
+msgstr ""
 
 #. module: website_sale
 #: field:product.template,alternative_product_ids:0
 msgid "Alternative Products"
-msgstr "Produtos alternativos"
+msgstr ""
 
 #. module: website_sale
 #: help:product.template,alternative_product_ids:0
 msgid "Appear on the product page"
-msgstr "Mostrar na página de produto"
+msgstr ""
 
 #. module: website_sale
 #: help:product.template,accessory_product_ids:0
 msgid "Appear on the shopping cart"
-msgstr "Mostrar no carrinho de compras"
+msgstr ""
 
 #. module: website_sale
 #: view:website:website_sale.cart
 msgid "Apply"
-msgstr "Aplicar"
+msgstr ""
 
 #. module: website_sale
 #: field:product.template,website_published:0
 msgid "Available in the website"
-msgstr "Disponível no site"
+msgstr ""
 
 #. module: website_sale
-#: view:website:website_sale.confirmation view:website:website_sale.payment
+#: view:website:website_sale.confirmation
+#: view:website:website_sale.payment
 msgid "Bill To:"
 msgstr ""
 
@@ -129,7 +131,7 @@ msgstr ""
 #. module: website_sale
 #: field:product.public.category,child_id:0
 msgid "Children Categories"
-msgstr "Sub Categorias"
+msgstr ""
 
 #. module: website_sale
 #. openerp-web
@@ -141,7 +143,7 @@ msgstr ""
 #. module: website_sale
 #: view:website:website_sale.checkout
 msgid "City"
-msgstr "Cidade"
+msgstr ""
 
 #. module: website_sale
 #. openerp-web
@@ -183,33 +185,35 @@ msgstr ""
 #: code:addons/website_sale/static/src/js/website_sale_tour_shop.js:110
 #, python-format
 msgid "Close Tutorial"
-msgstr "Fechar Tutorial"
+msgstr ""
 
 #. module: website_sale
 #: selection:product.attribute,type:0
 msgid "Color"
-msgstr "Cor"
+msgstr ""
 
 #. module: website_sale
 #: view:website:website_sale.checkout
 msgid "Company Name"
-msgstr "Nome da Empresa"
+msgstr ""
 
 #. module: website_sale
 #: view:website:website_sale.checkout
 msgid "Confirm"
-msgstr "Confirmar"
+msgstr ""
 
 #. module: website_sale
-#: view:website:website_sale.cart view:website:website_sale.checkout
-#: view:website:website_sale.confirmation view:website:website_sale.payment
+#: view:website:website_sale.cart
+#: view:website:website_sale.checkout
+#: view:website:website_sale.confirmation
+#: view:website:website_sale.payment
 msgid "Confirmation"
-msgstr "Confirmação"
+msgstr ""
 
 #. module: website_sale
 #: view:website:website_sale.confirmation
 msgid "Confirmed"
-msgstr "Confirmado"
+msgstr ""
 
 #. module: website_sale
 #. openerp-web
@@ -230,7 +234,7 @@ msgstr ""
 #: code:addons/website_sale/static/src/js/website_sale_tour_shop.js:47
 #, python-format
 msgid "Continue"
-msgstr "Continuar"
+msgstr ""
 
 #. module: website_sale
 #: view:website:website_sale.cart
@@ -240,12 +244,12 @@ msgstr ""
 #. module: website_sale
 #: view:website:website_sale.checkout
 msgid "Country"
-msgstr "País"
+msgstr ""
 
 #. module: website_sale
 #: view:website:website_sale.checkout
 msgid "Country..."
-msgstr "País..."
+msgstr ""
 
 #. module: website_sale
 #: view:website:website_sale.cart
@@ -281,15 +285,16 @@ msgid "Create your first product"
 msgstr ""
 
 #. module: website_sale
-#: field:product.public.category,create_uid:0 field:product.style,create_uid:0
+#: field:product.public.category,create_uid:0
+#: field:product.style,create_uid:0
 msgid "Created by"
-msgstr "Criado por"
+msgstr ""
 
 #. module: website_sale
 #: field:product.public.category,create_date:0
 #: field:product.style,create_date:0
 msgid "Created on"
-msgstr "Criado em"
+msgstr ""
 
 #. module: website_sale
 #: field:website,currency_id:0
@@ -337,7 +342,7 @@ msgstr ""
 #. module: website_sale
 #: view:website:website_sale.checkout
 msgid "Email"
-msgstr "E-mail"
+msgstr ""
 
 #. module: website_sale
 #. openerp-web
@@ -349,7 +354,7 @@ msgstr ""
 #. module: website_sale
 #: constraint:product.public.category:0
 msgid "Error ! You cannot create recursive categories."
-msgstr "Erro! Você não pode criar categorias recursivas."
+msgstr ""
 
 #. module: website_sale
 #: view:website:website_sale.product
@@ -358,8 +363,9 @@ msgstr ""
 
 #. module: website_sale
 #: help:product.public.category,sequence:0
-msgid "Gives the sequence order when displaying a list of product categories."
-msgstr "Define a ordem de apresentação quando mostrar a lista de categorias de produtos."
+msgid ""
+"Gives the sequence order when displaying a list of product categories."
+msgstr ""
 
 #. module: website_sale
 #: field:product.style,html_class:0
@@ -386,17 +392,18 @@ msgstr ""
 #. module: website_sale
 #: selection:product.attribute,type:0
 msgid "Hidden"
-msgstr "Oculto"
+msgstr ""
 
 #. module: website_sale
-#: field:product.public.category,id:0 field:product.style,id:0
+#: field:product.public.category,id:0
+#: field:product.style,id:0
 msgid "ID"
-msgstr "ID"
+msgstr ""
 
 #. module: website_sale
 #: field:product.public.category,image:0
 msgid "Image"
-msgstr "Imagem"
+msgstr ""
 
 #. module: website_sale
 #. openerp-web
@@ -407,14 +414,16 @@ msgid ""
 msgstr ""
 
 #. module: website_sale
-#: field:product.public.category,write_uid:0 field:product.style,write_uid:0
+#: field:product.public.category,write_uid:0
+#: field:product.style,write_uid:0
 msgid "Last Updated by"
-msgstr "Última atualização por"
+msgstr ""
 
 #. module: website_sale
-#: field:product.public.category,write_date:0 field:product.style,write_date:0
+#: field:product.public.category,write_date:0
+#: field:product.style,write_date:0
 msgid "Last Updated on"
-msgstr "Última atualização em"
+msgstr ""
 
 #. module: website_sale
 #. openerp-web
@@ -426,7 +435,7 @@ msgstr ""
 #. module: website_sale
 #: field:product.public.category,image_medium:0
 msgid "Medium-sized image"
-msgstr "Imagem de tamanho Médio"
+msgstr ""
 
 #. module: website_sale
 #: help:product.public.category,image_medium:0
@@ -434,7 +443,7 @@ msgid ""
 "Medium-sized image of the category. It is automatically resized as a "
 "128x128px image, with aspect ratio preserved. Use this field in form views "
 "or some kanban views."
-msgstr "Image médias da categoria. Ele é automaticamente redimensionada como uma imagem de 128x128px, com relação de aspecto preservado. Utilize este campo em vista de formulário ou algumas vistas kanban."
+msgstr ""
 
 #. module: website_sale
 #: view:website:website.layout
@@ -445,7 +454,7 @@ msgstr ""
 #: field:product.public.category,complete_name:0
 #: field:product.public.category,name:0
 msgid "Name"
-msgstr "Nome"
+msgstr ""
 
 #. module: website_sale
 #: view:website:website_sale.checkout
@@ -483,12 +492,12 @@ msgstr ""
 #. module: website_sale
 #: view:website:website_sale.products
 msgid "Options"
-msgstr "Opções"
+msgstr ""
 
 #. module: website_sale
 #: view:website:website_sale.confirmation
 msgid "Order"
-msgstr "Ordem"
+msgstr ""
 
 #. module: website_sale
 #: field:sale.order,website_order_line:0
@@ -505,12 +514,12 @@ msgstr ""
 #. module: website_sale
 #: model:product.public.category,name:website_sale.categ_others
 msgid "Others"
-msgstr "Outros"
+msgstr ""
 
 #. module: website_sale
 #: field:product.public.category,parent_id:0
 msgid "Parent Category"
-msgstr "Categoria superior(pai)"
+msgstr ""
 
 #. module: website_sale
 #: code:addons/website_sale/controllers/main.py:654
@@ -520,15 +529,17 @@ msgid "Pay Now"
 msgstr ""
 
 #. module: website_sale
-#: view:website:website_sale.cart view:website:website_sale.checkout
-#: view:website:website_sale.confirmation view:website:website_sale.payment
+#: view:website:website_sale.cart
+#: view:website:website_sale.checkout
+#: view:website:website_sale.confirmation
+#: view:website:website_sale.payment
 msgid "Payment"
-msgstr "Pagamento"
+msgstr ""
 
 #. module: website_sale
 #: field:sale.order,payment_acquirer_id:0
 msgid "Payment Acquirer"
-msgstr "Método de Pagamento"
+msgstr ""
 
 #. module: website_sale
 #: view:website:website_sale.payment
@@ -538,12 +549,12 @@ msgstr ""
 #. module: website_sale
 #: model:ir.model,name:website_sale.model_payment_transaction
 msgid "Payment Transaction"
-msgstr "Transação do Pagamento"
+msgstr ""
 
 #. module: website_sale
 #: view:website:website_sale.checkout
 msgid "Phone"
-msgstr "Telefone"
+msgstr ""
 
 #. module: website_sale
 #: view:website:website_sale.cart
@@ -553,17 +564,18 @@ msgstr ""
 #. module: website_sale
 #: view:website:website_sale.product
 msgid "Post"
-msgstr "Lançar"
+msgstr ""
 
 #. module: website_sale
-#: view:website:website_sale.cart view:website:website_sale.payment
+#: view:website:website_sale.cart
+#: view:website:website_sale.payment
 msgid "Price"
-msgstr "Preço"
+msgstr ""
 
 #. module: website_sale
 #: model:ir.model,name:website_sale.model_product_pricelist
 msgid "Pricelist"
-msgstr "Lista de Preço"
+msgstr ""
 
 #. module: website_sale
 #: view:website:website_sale.cart
@@ -572,19 +584,20 @@ msgstr ""
 
 #. module: website_sale
 #: model:ir.model,name:website_sale.model_product_product
-#: view:website:website_sale.cart view:website:website_sale.payment
+#: view:website:website_sale.cart
+#: view:website:website_sale.payment
 msgid "Product"
-msgstr "Produto"
+msgstr ""
 
 #. module: website_sale
 #: model:ir.model,name:website_sale.model_product_attribute
 msgid "Product Attribute"
-msgstr "Atributo de Produto"
+msgstr ""
 
 #. module: website_sale
 #: view:website:website_sale.product
 msgid "Product Name"
-msgstr "Nome do Produto"
+msgstr ""
 
 #. module: website_sale
 #: view:product.public.category:website_sale.product_public_category_tree_view
@@ -594,10 +607,11 @@ msgstr ""
 #. module: website_sale
 #: model:ir.model,name:website_sale.model_product_template
 msgid "Product Template"
-msgstr "Modelo de Produto"
+msgstr ""
 
 #. module: website_sale
-#: view:website:website_sale.product view:website:website_sale.product_price
+#: view:website:website_sale.product
+#: view:website:website_sale.product_price
 msgid "Product not available"
 msgstr ""
 
@@ -609,12 +623,12 @@ msgstr ""
 #. module: website_sale
 #: view:website:website_sale.product
 msgid "Products"
-msgstr "Produtos"
+msgstr ""
 
 #. module: website_sale
 #: view:website:website_sale.products
 msgid "Promote"
-msgstr "Promover"
+msgstr ""
 
 #. module: website_sale
 #: field:product.pricelist,code:0
@@ -666,9 +680,10 @@ msgid "Push up"
 msgstr ""
 
 #. module: website_sale
-#: view:website:website_sale.cart view:website:website_sale.payment
+#: view:website:website_sale.cart
+#: view:website:website_sale.payment
 msgid "Quantity"
-msgstr "Quantidade"
+msgstr ""
 
 #. module: website_sale
 #: selection:product.attribute,type:0
@@ -686,25 +701,27 @@ msgid "Return to the product list."
 msgstr ""
 
 #. module: website_sale
-#: view:website:website_sale.cart view:website:website_sale.checkout
-#: view:website:website_sale.confirmation view:website:website_sale.payment
+#: view:website:website_sale.cart
+#: view:website:website_sale.checkout
+#: view:website:website_sale.confirmation
+#: view:website:website_sale.payment
 msgid "Review Order"
 msgstr ""
 
 #. module: website_sale
 #: view:website:website_sale.products_item
 msgid "Sale"
-msgstr "Venda"
+msgstr ""
 
 #. module: website_sale
 #: field:payment.transaction,sale_order_id:0
 msgid "Sale Order"
-msgstr "Pedido de Venda"
+msgstr ""
 
 #. module: website_sale
 #: model:ir.model,name:website_sale.model_sale_order
 msgid "Sales Order"
-msgstr "Pedido de Venda"
+msgstr ""
 
 #. module: website_sale
 #. openerp-web
@@ -718,7 +735,7 @@ msgstr ""
 #: code:addons/website_sale/static/src/js/website_sale_tour_shop.js:95
 #, python-format
 msgid "Save your modifications"
-msgstr "Salvar suas modificações"
+msgstr ""
 
 #. module: website_sale
 #: view:website:website_sale.search
@@ -733,7 +750,7 @@ msgstr ""
 #. module: website_sale
 #: selection:product.attribute,type:0
 msgid "Select"
-msgstr "Selecionar"
+msgstr ""
 
 #. module: website_sale
 #. openerp-web
@@ -755,15 +772,17 @@ msgstr ""
 #: field:product.public.category,sequence:0
 #: field:product.template,website_sequence:0
 msgid "Sequence"
-msgstr "Seqüência"
+msgstr ""
 
 #. module: website_sale
-#: view:website:website_sale.confirmation view:website:website_sale.payment
+#: view:website:website_sale.confirmation
+#: view:website:website_sale.payment
 msgid "Ship To:"
 msgstr ""
 
 #. module: website_sale
-#: view:website:website_sale.checkout view:website:website_sale.confirmation
+#: view:website:website_sale.checkout
+#: view:website:website_sale.confirmation
 #: view:website:website_sale.payment
 msgid "Ship to the same address"
 msgstr ""
@@ -771,34 +790,36 @@ msgstr ""
 #. module: website_sale
 #: view:website:website_sale.checkout
 msgid "Shipping"
-msgstr "Entrega"
+msgstr ""
 
 #. module: website_sale
-#: view:website:website_sale.cart view:website:website_sale.checkout
-#: view:website:website_sale.confirmation view:website:website_sale.payment
+#: view:website:website_sale.cart
+#: view:website:website_sale.checkout
+#: view:website:website_sale.confirmation
+#: view:website:website_sale.payment
 msgid "Shipping & Billing"
 msgstr ""
 
 #. module: website_sale
 #: view:website:website_sale.checkout
 msgid "Shipping Information"
-msgstr "Informações de entrega"
+msgstr ""
 
 #. module: website_sale
 #: view:website:website_sale.products
 #: model:website.menu,name:website_sale.menu_shop
 msgid "Shop"
-msgstr "Loja"
+msgstr ""
 
 #. module: website_sale
 #: view:website:website_sale.checkout
 msgid "Shop - Checkout"
-msgstr "Compras - Checkout"
+msgstr ""
 
 #. module: website_sale
 #: view:website:website_sale.confirmation
 msgid "Shop - Confirmed"
-msgstr "Compras - Confirmadas"
+msgstr ""
 
 #. module: website_sale
 #: view:website:website_sale.payment
@@ -813,12 +834,12 @@ msgstr ""
 #. module: website_sale
 #: view:website:website_sale.checkout
 msgid "Sign in"
-msgstr "Entrada"
+msgstr ""
 
 #. module: website_sale
 #: view:website:website_sale.products
 msgid "Size"
-msgstr "Tamanho"
+msgstr ""
 
 #. module: website_sale
 #: field:product.template,website_size_x:0
@@ -840,15 +861,15 @@ msgstr ""
 #. module: website_sale
 #: field:product.public.category,image_small:0
 msgid "Smal-sized image"
-msgstr "Imagem pequena"
+msgstr ""
 
 #. module: website_sale
 #: help:product.public.category,image_small:0
 msgid ""
 "Small-sized image of the category. It is automatically resized as a 64x64px "
-"image, with aspect ratio preserved. Use this field anywhere a small image is"
-" required."
-msgstr "Imagem de tamanho pequeno da categoria. Ele é automaticamente redimensionada como uma imagem 64x64px, com relação de aspecto preservado. Utilize este campo em qualquer lugar uma imagem pequena é necessária."
+"image, with aspect ratio preserved. Use this field anywhere a small image is "
+"required."
+msgstr ""
 
 #. module: website_sale
 #: view:website:website_sale.404
@@ -860,7 +881,7 @@ msgstr ""
 #: code:addons/website_sale/static/src/js/website_sale_tour_shop.js:13
 #, python-format
 msgid "Start Tutorial"
-msgstr "Iniciar Tutorial"
+msgstr ""
 
 #. module: website_sale
 #: view:website:website_sale.checkout
@@ -875,7 +896,7 @@ msgstr ""
 #. module: website_sale
 #: view:website:website_sale.checkout
 msgid "Street"
-msgstr "Endereço"
+msgstr ""
 
 #. module: website_sale
 #: field:product.style,name:0
@@ -891,7 +912,7 @@ msgstr ""
 #. module: website_sale
 #: view:website:website_sale.checkout
 msgid "Subtotal:"
-msgstr "Subtotal:"
+msgstr ""
 
 #. module: website_sale
 #: view:website:website_sale.product
@@ -909,9 +930,10 @@ msgid "Taxes may be updated after providing shipping address"
 msgstr ""
 
 #. module: website_sale
-#: view:website:website_sale.checkout view:website:website_sale.total
+#: view:website:website_sale.checkout
+#: view:website:website_sale.total
 msgid "Taxes:"
-msgstr "Impostos:"
+msgstr ""
 
 #. module: website_sale
 #: view:website:website_sale.confirmation
@@ -958,17 +980,17 @@ msgstr ""
 #. module: website_sale
 #: view:website:website_sale.total
 msgid "Total:"
-msgstr "Total:"
+msgstr ""
 
 #. module: website_sale
 #: field:sale.order,payment_tx_id:0
 msgid "Transaction"
-msgstr "Transação"
+msgstr ""
 
 #. module: website_sale
 #: field:product.attribute,type:0
 msgid "Type"
-msgstr "Tipo"
+msgstr ""
 
 #. module: website_sale
 #. openerp-web
@@ -996,7 +1018,7 @@ msgstr ""
 #: model:ir.model,name:website_sale.model_website
 #: view:product.template:website_sale.product_template_form_view
 msgid "Website"
-msgstr "Site"
+msgstr ""
 
 #. module: website_sale
 #: field:product.template,website_message_ids:0
@@ -1011,20 +1033,21 @@ msgstr ""
 #. module: website_sale
 #: field:product.template,website_meta_description:0
 msgid "Website meta description"
-msgstr "Site descrição meta"
+msgstr ""
 
 #. module: website_sale
 #: field:product.template,website_meta_keywords:0
 msgid "Website meta keywords"
-msgstr "Site meta palavra-chave"
+msgstr ""
 
 #. module: website_sale
 #: field:product.template,website_meta_title:0
 msgid "Website meta title"
-msgstr "Site meta título"
+msgstr ""
 
 #. module: website_sale
-#: field:product.product,website_url:0 field:product.template,website_url:0
+#: field:product.product,website_url:0
+#: field:product.template,website_url:0
 msgid "Website url"
 msgstr ""
 
@@ -1057,7 +1080,7 @@ msgstr ""
 #. module: website_sale
 #: view:website:website_sale.checkout
 msgid "Your Name"
-msgstr "Seu Nome"
+msgstr ""
 
 #. module: website_sale
 #: view:website:website_sale.checkout
@@ -1090,7 +1113,7 @@ msgstr ""
 #. module: website_sale
 #: view:website:website_sale.checkout
 msgid "change"
-msgstr "modificar"
+msgstr ""
 
 #. module: website_sale
 #: view:website:website_sale.cart
@@ -1120,12 +1143,12 @@ msgstr ""
 #. module: website_sale
 #: view:website:website_sale.product
 msgid "on"
-msgstr "em"
+msgstr ""
 
 #. module: website_sale
 #: view:website:website_sale.checkout
 msgid "or"
-msgstr "ou"
+msgstr ""
 
 #. module: website_sale
 #: view:website:website_sale.products

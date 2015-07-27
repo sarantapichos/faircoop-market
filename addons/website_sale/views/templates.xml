@@ -34,9 +34,9 @@
       </li>
   </xpath>
 </template>
-
 <template id="search" name="Search hidden fields">
-  <form t-att-action="keep('/shop'+ ('/category/'+slug(category)) if category else '', search=0)" method="get" t-att-class="search_class">
+
+    <form t-att-action="keep('/shop'+ (('/country/'+slug(current_country)) if current_country else '') + (('/category/'+slug(category)) if category else '') + (('/country_defined') if check else ''), search=0)" method="get" t-att-class="search_class">
 
     <t t-if="attrib_values">
       <t t-foreach="attrib_values" t-as="a">
@@ -76,12 +76,24 @@
     <div class="ribbon btn btn-danger">Sale</div>
   </div>
   <div class="oe_product_image">
-      <a itemprop="url" t-att-href="keep('/shop/product/%s' % slug(product), page=(pager['page']['num'] if pager['page']['num']>1 else None))">
-          <img itemprop="image" class="img img-responsive" t-att-src="website.image_url(product, 'image', None if product_image_big else '300x300')"/>
-      </a>
+      <t t-if="not check">
+          <a itemprop="url" t-att-href="keep('/shop/product/%s' % slug(product), page=(pager['page']['num'] if pager['page']['num']>1 else None))">
+              <img itemprop="image" class="img img-responsive" t-att-src="website.image_url(product, 'image', None if product_image_big else '300x300')"/>
+          </a>
+      </t>
+      <t t-if="check">
+          <a itemprop="url" t-att-href="keep('/shop/product/%s/%s' % (slug(product),current_country.id), page=(pager['page']['num'] if pager['page']['num']>1 else None))">
+              <img itemprop="image" class="img img-responsive" t-att-src="website.image_url(product, 'image', None if product_image_big else '300x300')"/>
+          </a>
+      </t>
   </div>
   <section>
+      <t t-if="not check">
       <h5><strong><a itemprop="name" t-att-href="keep('/shop/product/%s' % slug(product), page=(pager['page']['num'] if pager['page']['num']>1 else None))" t-field="product.name"/></strong></h5>
+      </t>
+      <t t-if="check">
+          <h5><strong><a itemprop="name" t-att-href="keep('/shop/product/%s/%s' % (slug(product),current_country.id), page=(pager['page']['num'] if pager['page']['num']>1 else None))" t-field="product.name"/></strong></h5>
+      </t>
       <div itemprop="offers" itemscope="itemscope" itemtype="http://schema.org/Offer" class="product_price" t-if="product.product_variant_ids">
           <b>
               <t t-if="(compute_currency(product.lst_price) - product.price) &gt; 0.1">
@@ -100,6 +112,17 @@
               <span itemprop="priceCurrency" style="display:none;" t-esc="user_id.partner_id.property_product_pricelist.currency_id.name"/>
           </b>
       </div>
+
+      <div style="display: inline-block; font-size:12px;">
+          <!--<t t-esc="product.product_brand_id.company_id.partner_id.name"/><br/>-->
+          <t t-if="current_country">
+              <p><a t-attf-href="/shop#{check}#{ '/country/%s' % slug(current_country) or '' }/brands?brand=#{product.product_brand_id.id}"><t t-esc="product.product_brand_id.name"/></a> - <t t-esc="product.product_brand_id.company_id.partner_id.country_id.name"/></p>
+          </t>
+          <t t-if="not current_country">
+              <p><a t-attf-href="/shop#{check}/brands?brand=#{product.product_brand_id.id}"><t t-esc="product.product_brand_id.name"/></a> - <t t-esc="product.product_brand_id.company_id.partner_id.country_id.name"/></p>
+          </t>
+
+      </div>
   </section>
   </div>
   </form>
@@ -116,12 +139,7 @@
 <template id="products_add_to_cart" inherit_id="website_sale.products_item" active="False" customize_show="True" name="Add to Cart">
   <xpath expr="//div[@class='product_price']" position="inside">
     <input name="product_id" t-att-value="product.product_variant_ids[0].id" type="hidden"/>
-    <t t-if="len(product.product_variant_ids) == 1">
-      <a class="btn btn-default btn-xs fa fa-shopping-cart a-submit"/>
-    </t>
-    <t t-if="len(product.product_variant_ids) &gt; 1">
-      <a class="btn btn-default btn-xs fa fa-shopping-cart" t-att-href="keep('/shop/product/%s' % slug(product), page=(pager['page']['num'] if pager['page']['num']>1 else None))"/>
-    </t>
+    <a class="btn btn-default btn-xs fa fa-shopping-cart a-submit"/>
   </xpath>
 </template>
 
@@ -129,18 +147,72 @@
 
 <template id="products" name="Products">
   <t t-call="website.layout">
+
       <t t-set="additional_title">Shop</t>
       <div id="wrap" class="js_sale">
         <div class="oe_structure"/>
         <div class="container oe_website_sale">
           <div class="products_pager">
+              <t t-if="current_country and check=='/country_defined'">
+                  <div class="page-header">
+                      <h1>Fair Market <a t-att-href="keep('/%s' % (current_country.name))"><t t-esc="current_country.name"/></a>
+                          <p>
+                              <small>FairCoop Marketplace for The Fair Economy</small>
+                          </p>
+                      </h1>
+                  </div>
+              </t>
             <div class="row" style="width: 100%;">
               <t t-call="website_sale.search"><t t-set="search_class">pagination form-inline col-md-3</t></t>
               <t t-call="website.pager"/>
             </div>
           </div>
+            <section>
+            <div class="col-md-3 mb32" id="partner_left">
+
+                <ul class="nav nav-pills nav-stacked mt16">
+                    <li class="nav-header"><h3>Filter by Category</h3></li>
+                    <li t-att-class=" '' if category else 'active' ">
+                        <t t-if="current_country">
+                            <a t-attf-href="/shop#{ current_country and '/country/%s' % slug(current_country) or '' }#{ check }#{ '?' + (search_path or '') }">All Products</a>
+                        </t>
+                        <t t-if="not current_country">
+                            <a t-attf-href="/shop#{ check }#{ '?' + (search_path or '') }">All Products</a>
+                        </t>
+                    </li>
+                    <t t-foreach="categories" t-as="c">
+                        <t t-call="website_sale.categories_recursive"/>
+                    </t>
+                </ul>
+                <t t-if='countries'>
+                    <t t-if='not check'>
+                        <ul id="reseller_countries" class="nav nav-pills nav-stacked mt16">
+                            <li class="nav-header"><h3>Filter by Country</h3></li>
+                            <t t-foreach="countries" t-as="country">
+                                <li t-if="country['country_id']" t-att-class="country['active'] and 'active' or ''">
+                                    <a t-attf-href="/shop#{country['country_id'][0] and '/country/%s' % country['country_id'][0] or '' }#{ category and '/category/%s' % slug(category) or ''}#{ '?' + (search_path or '') + (country['country_id'][0] == 0 and '&amp;country_all=True' or '')}">
+                                        <t t-esc="country['country_id'][1]"/>
+                                    </a>
+                                </li>
+                            </t>
+                        </ul>
+                    </t>
+                </t>
+            </div>
+            <t t-if='not countries'>
+                <div class="text-center text-muted">
+                    <h3 class="css_editable_display">No Countries Found</h3>
+                </div>
+            </t>
+            <t t-if='not categories'>
+                <div class="text-center text-muted">
+                    <h3 class="css_editable_display">No Categories Found</h3>
+                </div>
+            </t>
+            </section>
+
           <div class='row'>
-            <div class="hidden" id="products_grid_before"></div>
+            <div id="products_grid_before"></div>
             <div class="col-md-12" id="products_grid">
               <table width="100%">
                 <tbody>
@@ -249,7 +321,17 @@
 
 <template id="categories_recursive" name="Category list">
   <li t-att-class="'active' if c.id == int(category or 0) else ''">
-      <a t-att-href="keep('/shop/category/' + slug(c), category=0)" t-field="c.name"></a>
+      <t t-if="current_country">
+          <a t-attf-href="/shop#{ current_country and '/country/%s' % slug(current_country) or '' }#{ c and '/category/%s' % slug(c) or ''}#{ check }#{ '?' + (search_path or '') }">
+              <t t-esc="c.name"/>
+          </a>
+      </t>
+      <t t-if="not current_country">
+          <a t-attf-href="/shop#{ c and '/category/%s' % slug(c) or ''}#{ check }#{ '?' + (search_path or '') }">
+              <t t-esc="c.name"/>
+          </a>
+      </t>
+
       <ul t-if="c.child_id" class="nav nav-pills nav-stacked nav-hierarchy">
           <t t-foreach="c.child_id" t-as="c">
               <t t-call="website_sale.categories_recursive"/>
@@ -258,10 +340,9 @@
   </li>
 </template>
 
-<template id="products_categories" inherit_id="website_sale.products" active="False" customize_show="True" name="Product Categories">
+<template id="products_categories" inherit_id="website_sale.products" active="True" customize_show="True" name="Product Categories">
   <xpath expr="//div[@id='products_grid_before']" position="inside">
       <ul class="nav nav-pills nav-stacked mt16">
-          <li t-att-class=" '' if category else 'active' "><a t-att-href="keep('/shop',category=0)">All Products</a></li>
           <t t-foreach="categories" t-as="c">
               <t t-call="website_sale.categories_recursive"/>
           </t>
@@ -333,7 +414,7 @@
 <template id="products_list_view" inherit_id="website_sale.products" active="False" customize_show="True" name="List View">
   <xpath expr="//div[@id='products_grid']//table" position="replace">
     <t t-foreach="products" t-as="product">
-      <div class="oe_product oe_list oe_product_cart" t-att-data-publish="product.website_published and 'on' or 'off'">
+      <div class="oe_product oe_grid oe-height-2 " t-att-data-publish="product.website_published and 'on' or 'off'">
         <t t-call="website_sale.products_item"/>
       </div>
     </t>
@@ -344,9 +425,19 @@
 
 <template id="product" name="Product">
   <t t-call="website.layout">
+    <t t-if="current_country">
+      <div class="page-header products_pager">
+          <h1>Fair Market <a t-attf-href="/#{country_name}"><t t-esc="current_country.name"/></a>
+              <p>
+                  <small>FairCoop Marketplace for The Fair Economy</small>
+              </p>
+          </h1>
+      </div>
+    </t>
       <t t-set="additional_title" t-value="product.name"/>
       <div itemscope="itemscope" itemtype="http://schema.org/Product" id="wrap" class="js_sale">
-        <section t-attf-class="container mt8 oe_website_sale #{(compute_currency(product.lst_price) - product.price) &gt; 0.1 and 'discount'}" id="product_detail">
+
+        <section class="container mt8">
           <div class="row">
             <div class="col-sm-4">
                 <ol class="breadcrumb">
@@ -366,31 +457,65 @@
                 </t>
             </div>
           </div>
+        </section>
+
+        <section t-attf-class="container oe_website_sale #{(compute_currency(product.lst_price) - product.price) &gt; 0.1 and 'discount'}" id="product_detail">
           <div class="row">
             <div class="col-sm-7 col-md-7 col-lg-7">
                 <span itemprop="image" t-field="product.image" t-field-options='{"widget": "image", "class": "product_detail_img"}'/>
             </div><div class="col-sm-5 col-md-5 col-lg-4 col-lg-offset-1">
                 <h1 itemprop="name" t-field="product.name">Product Name</h1>
-                <span itemprop="url" style="display:none;" t-esc="'/shop/product/%s' % slug(product)"/>
+                <t t-if="not check">
+                    <span itemprop="url" style="display:none;" t-esc="'/shop/product/%s' % slug(product)"/>
+                </t>
+                <t t-if="check">
+                    <span itemprop="url" style="display:none;" t-esc="'/shop/country_defined/product/%s' % slug(product)"/>
+                </t>
+              <t t-if="current_country">
+                  <form t-att-action="keep('/shop/cart/update')" class="js_add_cart_variants" method="POST">
+                      <div class="js_product">
+                          <t t-placeholder="select">
+                              <input type="hidden" class="country_id" name="current_country" t-att-value="current_country.id"/>
+                              <input type="hidden" class="product_id" name="product_id" t-att-value="int(product.product_variant_ids[0]) if len(product.product_variant_ids) == 1 else '0'"/>
+                              <t t-call="website_sale.variants">
+                                  <t t-set="ul_class" t-value="'nav-stacked'"/>
+                              </t>
+                          </t>
 
+                          <t t-call="website_sale.product_price"/>
+                          <p t-if="len(product.product_variant_ids) > 1" class="css_not_available_msg bg-danger" style="padding: 15px;">Product not available</p>
+
+                          <a id="add_to_cart" class="btn btn-primary btn-lg mt8 js_check_product a-submit" href="#">Add to Cart</a>
+                      </div>
+
+                  </form>
+              </t>
+              <t t-if="not current_country">
                 <form t-att-action="keep('/shop/cart/update')" class="js_add_cart_variants" method="POST">
+                    <div class="js_product">
+                        <t t-placeholder="select">
+                            <input type="hidden" class="product_id" name="product_id" t-att-value="int(product.product_variant_ids[0]) if len(product.product_variant_ids) == 1 else '0'"/>
+                            <t t-call="website_sale.variants">
+                                <t t-set="ul_class" t-value="'nav-stacked'"/>
+                            </t>
+                        </t>
+                        <t t-call="website_sale.product_price"/>
+                        <p t-if="len(product.product_variant_ids) > 1" class="css_not_available_msg bg-danger" style="padding: 15px;">Product not available</p>
 
-                  <div class="js_product">
-                    <t t-placeholder="select">
-                      <input type="hidden" class="product_id" name="product_id" t-att-value="int(product.product_variant_ids[0]) if len(product.product_variant_ids) == 1 else '0'"/>
-                      <t t-call="website_sale.variants">
-                        <t t-set="ul_class" t-value="'nav-stacked'"/>
-                      </t>
-                    </t>
-
-                    <t t-call="website_sale.product_price"/>
-                    <p t-if="len(product.product_variant_ids) > 1" class="css_not_available_msg bg-danger" style="padding: 15px;">Product not available</p>
-
-                    <a id="add_to_cart" class="btn btn-primary btn-lg mt8 js_check_product a-submit" href="#">Add to Cart</a>
-                  </div>
+                        <a id="add_to_cart" class="btn btn-primary btn-lg mt8 js_check_product a-submit" href="#">Add to Cart</a>
+                    </div>
 
                 </form>
 
+              </t>
+
+                <hr/><h4>
+                  <p>Company: <t t-esc="product.product_brand_id.company_id.partner_id.name"/></p>
+                      <!--<a t-attf-href="/partners/#{product.product_brand_id.company_id.partner_id.id}"><t t-esc="product.product_brand_id.company_id.partner_id.name"/></a></p>-->
+                  <p>Brand: <t t-esc="product.product_brand_id.name"/></p>
+                    <!--<a t-attf-href="/shop#{check}#{ '/country/%s' % slug(current_country) or '' }/brands?brand=#{product.product_brand_id.id}"><t t-esc="product.product_brand_id.name"/></a>-->
+                  <p>Country: <t t-esc="product.product_brand_id.company_id.partner_id.country_id.name"/></p>
+                <hr/></h4>
                 <hr t-if="product.description_sale"/>
                 <div><p t-field="product.description_sale" class="text-muted"/></div>
                 <hr/>
@@ -548,15 +673,23 @@
   <xpath expr="//div[@id='product_full_description']" position="after">
       <div class="container mt32" t-if="product.alternative_product_ids">
           <h3>Suggested alternatives:</h3>
-          <div class='row mt16' style="">
+          <div class='row mt16' style="margin-left: 15px !important;">
           <t t-foreach="product.alternative_product_ids" t-as="product">
-              <div class='col-md-2 thumbnail' style='width: 170px; height:130px; float:left; display:inline; margin-right: 10px;'>
+              <div class='col-md-2 thumbnail' style='width: 170px; margin-right: 16px;'>
                   <div class='mt16 text-center'>
                       <span t-field="product.image_small" t-field-options='{"widget": "image", "class": "img-rounded shadow" }'/>
                       <h5>
-                          <a t-attf-href="/shop/product/#{ slug(product) }" style="display: block">
-                              <span t-field='product.name' style="display: block"/>
-                          </a>
+                          <t t-if="current_country">
+                              <a t-attf-href="/shop#{check}#{ '/country/%s' % slug(current_country) or '' }/product/#{ slug(product) }" style="display: block">
+                                  <span t-field='product.name' style="display: block"/>
+                              </a>
+                          </t>
+                          <t t-if="not current_country">
+                              <a t-attf-href="/shop#{check}/product/#{ slug(product) }" style="display: block">
+                                  <span t-field='product.name' style="display: block"/>
+                              </a>
+                          </t>
+
                       </h5>
                   </div>
               </div>
@@ -643,6 +776,15 @@
 
 <template id="cart" name="Shopping Cart">
   <t t-call="website.layout">
+      <t t-if="current_country">
+          <div class="page-header products_pager">
+              <h1>Fair Market <a t-attf-href="/#{current_country.name}"><t t-esc="current_country.name"/></a>
+                  <p>
+                      <small>FairCoop Marketplace for The Fair Economy</small>
+                  </p>
+              </h1>
+          </div>
+      </t>
       <div id="wrap">
         <div class="container oe_website_sale">
 
@@ -677,9 +819,16 @@
                               </td>
                               <td t-if="line.product_id.product_tmpl_id">
                                   <div>
-                                      <a t-attf-href="/shop/product/#{ slug(line.product_id.product_tmpl_id) }">
-                                          <strong t-esc="line.product_id.with_context(display_default_code=False).display_name"/>
-                                      </a>
+                                      <t t-if="current_country">
+                                          <a t-attf-href="/shop/product/#{ slug(line.product_id.product_tmpl_id) }/#{current_country['id']}">                                              <strong t-esc="line.product_id.with_context(display_default_code=False).display_name"/>
+                                          </a>
+                                      </t>
+                                      <t t-if="not current_country">
+                                          <a t-attf-href="/shop/product/#{ slug(line.product_id.product_tmpl_id) }">
+                                              <strong t-esc="line.product_id.with_context(display_default_code=False).display_name"/>
+                                          </a>
+                                      </t>
+
                                   </div>
                                   <div class="text-muted" t-esc="'\n'.join(line.name.splitlines()[1:])"/>
                               </td>
@@ -720,8 +869,21 @@
                   </table>
                   <t t-call="website_sale.total"/>
                   <div class="clearfix"/>
+                  <xpath expr="//a[@href='/shop/checkout']" position="before">
+                      <t t-if="not current_country">
+                          <a href="/shop/" class="btn btn-default mb32"><span class="fa fa-long-arrow-left"/> <span class="hidden-xs">Continue Shopping</span><span class="visible-xs-inline">Continue</span></a>
+                      </t>
+                      <t t-if="current_country">
+                          <a t-attf-href="/shop#{ '/country/%s' % slug(current_country) or '' }#{check or ''}"  class="btn btn-default mb32"><span class="fa fa-long-arrow-left"/> <span class="hidden-xs">Continue Shopping</span><span class="visible-xs-inline">Continue</span></a>
+                      </t>
+                  </xpath>
 
-                  <a t-if="not optional_products and website_sale_order and website_sale_order.website_order_line" class="btn btn-primary pull-right mb32" href="/shop/checkout"><span class="hidden-xs">Process Checkout</span><span class="visible-xs-inline">Checkout</span> <span class="fa fa-long-arrow-right"/></a>
+                  <t t-if="not current_country2">
+                      <a t-if="not optional_products and website_sale_order and website_sale_order.website_order_line" class="btn btn-primary pull-right mb32" href="/shop/checkout"><span class="hidden-xs">Process Checkout</span><span class="visible-xs-inline">Checkout</span> <span class="fa fa-long-arrow-right"/></a>
+                  </t>
+                  <t t-if="current_country2">
+                      <a t-if="not optional_products and website_sale_order and website_sale_order.website_order_line" class="btn btn-primary pull-right mb32" t-attf-href="/shop#{ '/checkout/%s' % slug(current_country) or '' }" ><span class="hidden-xs">Process Checkout</span><span class="visible-xs-inline">Checkout</span> <span class="fa fa-long-arrow-right"/></a>
+                  </t>
 
                   <div class="oe_structure"/>
               </div>
@@ -791,20 +953,24 @@
                        }'/>
                   </td>
                   <td class="text-center">
-                      <form action="/shop/cart/update" method="post">
-                          <input name="product_id" t-att-value="product.id" type="hidden"/>
-                          <a class="btn btn-link a-submit"><strong>Add to Cart</strong></a>
-                      </form>
+                      <t t-if="current_country">
+                          <form action="/shop/cart/update#{ slug(current_country)" method="post">
+                              <input name="country_id" t-att-value="current_country.id" type="hidden"/>
+                              <input name="product_id" t-att-value="product.id" type="hidden"/>
+                              <a class="btn btn-link a-submit"><strong>Add to Cart</strong></a>
+                          </form>
+                      </t>
+                      <t t-if="not current_country">
+                          <form action="/shop/cart/update" method="post">
+                              <input name="product_id" t-att-value="product.id" type="hidden"/>
+                              <a class="btn btn-link a-submit"><strong>Add to Cart</strong></a>
+                          </form>
+                      </t>
+
                   </td>
               </tr>
           </tbody>
       </table>
-  </xpath>
-</template>
-
-<template id="continue_shopping" inherit_id="website_sale.cart" customize_show="True" name="Continue Shopping Button">
-  <xpath expr="//a[@href='/shop/checkout']" position="before">
-    <a href="/shop" class="btn btn-default mb32"><span class="fa fa-long-arrow-left"/> <span class="hidden-xs">Continue Shopping</span><span class="visible-xs-inline">Continue</span></a>
   </xpath>
 </template>
 
@@ -829,16 +995,31 @@
 
 <template id="checkout">
   <t t-call="website.layout">
+      <t t-if="current_country">
+          <div class="page-header products_pager">
+              <h1>Fair Market <a t-attf-href="/#{current_country.name}"><t t-esc="current_country.name"/></a>
+                  <p>
+                      <small>FairCoop Marketplace for The Fair Economy</small>
+                  </p>
+              </h1>
+          </div>
+      </t>
     <t t-set="additional_title">Shop - Checkout</t>
     <div id="wrap">
       <div class="container oe_website_sale">
           <ul class="wizard pull-right">
-              <li><a href="/shop/cart" class="text-success">Review Order<span class="chevron"></span></a></li>
+              <t t-if="current_country">
+                  <li><a t-attf-href="/shop#{ '/cart/%s' % slug(current_country) or '' }#{check or ''}" class="text-success">Review Order<span class="chevron"></span></a></li>
+              </t>
+              <t t-if="not current_country">
+                  <li><a href="/shop/cart" class="text-success">Review Order<span class="chevron"></span></a></li>
+              </t>
               <li class="text-primary">Shipping &amp; Billing<span class="chevron"></span></li>
               <li class="text-muted">Payment<span class="chevron"></span></li>
               <li class="text-muted">Confirmation<span class="chevron"></span></li>
           </ul>
           <h1>Your Address</h1>
+           <t t-if="not current_country">
           <form action="/shop/confirm_order" method="post">
 
           <div class="row">
@@ -969,12 +1150,23 @@
                   </div>
               </div>
               <div class="clearfix">
-                <a href="/shop/cart" class="btn btn-default mb32"><span class="fa fa-long-arrow-left"/> Return to Cart</a>
+				  <t t-if="not current_country">
+					<a href="/shop/cart" class="btn btn-default mb32"><span class="fa fa-long-arrow-left"/> Return to Cart</a>
+                  </t>
+                  <t t-if="current_country">
+                    <a t-attf-href="/shop#{ '/cart/%s' % slug(current_country) or '' }#{check or ''}" class="btn btn-default mb32"><span class="fa fa-long-arrow-left"/> Return to Cart</a>
+                   </t>
                 <a class="btn btn-default btn-primary pull-right mb32 a-submit">Confirm <span class="fa fa-long-arrow-right"/></a>
               </div>
           </div>
           <div class="col-lg-offset-1 col-lg-3 col-md-3 text-muted">
-              <h3 class="page-header mt16">Your Order <small><a href="/shop/cart"><span class="fa fa-arrow-right"/> change</a></small></h3>
+			  
+              <t t-if="current_country">
+                  <h3 class="page-header mt16">Your Order <small><a t-attf-href="/shop#{ '/cart/%s' % slug(current_country) or '' }#{check or ''}"><span class="fa fa-arrow-right"/> change</a></small></h3>
+              </t>
+              <t t-if="not current_country">
+                  <h3 class="page-header mt16">Your Order <small><a href="/shop/cart"><span class="fa fa-arrow-right"/> change</a></small></h3>
+              </t>
               <t t-set="website_sale_order" t-value="website.sale_get_order()"/>
               <div class="row">
                   <div class="col-sm-6 text-right">Subtotal: </div>
@@ -999,6 +1191,181 @@
           </div>
       </div>
       </form>
+      </t>
+      <t t-if="current_country">
+		  <form t-attf-action="/shop/confirm_order/#{slug(current_country)}" method="post">
+			  
+          <div class="row">
+          <div class="col-md-8 oe_cart">
+              <h3 class="page-header mt16">Billing Information
+                  <small groups="base.group_public"> or
+                      <a class='btn btn-primary' t-if="not partner" t-attf-href="/web?redirect=#{ request.httprequest.url }">Sign in</a>
+                  </small>
+              </h3>
+              <div class="row">
+                  <div t-attf-class="form-group #{error.get('name') and 'has-error' or ''} col-lg-6">
+                      <label class="control-label" for="contact_name">Your Name</label>
+                      <input type="text" name="name" class="form-control" t-att-value="checkout.get('name')"/>
+                  </div>
+                  <div t-if="has_check_vat" class="clearfix"/>
+                  <div t-attf-class="form-group #{error.get('street') and 'has-error' or ''} col-lg-6">
+                      <label class="control-label" for="street" style="font-weight: normal">Company Name</label>
+                      <input type="text" name="street" class="form-control" t-att-value="checkout.get('street')"/>
+                  </div>
+                  <div t-if="has_check_vat" t-attf-class="form-group #{error.get('vat') and 'has-error' or ''} col-lg-6">
+                      <label class="control-label" for="vat" style="font-weight: normal">VAT Number</label>
+                      <input type="text" name="vat" class="form-control" t-att-value="checkout.get('vat')"/>
+                  </div>
+                  <div t-attf-class="form-group #{error.get('email') and 'has-error' or ''} col-lg-6">
+                      <label class="control-label" for="contact_name">Email</label>
+                      <input type="email" name="email" class="form-control" t-att-value="checkout.get('email')"/>
+                  </div>
+                  <div t-attf-class="form-group #{error.get('phone') and 'has-error' or ''} col-lg-6">
+                      <label class="control-label" for="phone">Phone</label>
+                      <input type="tel" name="phone" class="form-control" t-att-value="checkout.get('phone')"/>
+                  </div>
+
+                  <div t-attf-class="form-group #{error.get('street2') and 'has-error' or ''} col-lg-6">
+                      <label class="control-label" for="street2">Street</label>
+                      <input type="text" name="street2" class="form-control" t-att-value="checkout.get('street2')"/>
+                  </div>
+                  <div class="clearfix"/>
+
+                  <div t-attf-class="form-group #{error.get('city') and 'has-error' or ''} col-lg-6">
+                      <label class="control-label" for="city">City</label>
+                      <input type="text" name="city" class="form-control" t-att-value="checkout.get('city')"/>
+                  </div>
+                  <div t-attf-class="form-group #{error.get('zip') and 'has-error' or ''} col-lg-6">
+                      <label class="control-label" for="zip" style="font-weight: normal">Zip / Postal Code</label>
+                      <input type="text" name="zip" class="form-control" t-att-value="checkout.get('zip')"/>
+                  </div>
+                  <div t-attf-class="form-group #{error.get('country_id') and 'has-error' or ''} col-lg-6">
+                      <label class="control-label" for="country_id">Country</label>
+                      <select name="country_id" class="form-control">
+                          <option value="">Country...</option>
+                          <t t-foreach="countries or []" t-as="country">
+                              <option t-att-value="country.id" t-att-selected="country.id == checkout.get('country_id')"><t t-esc="country.name"/></option>
+                          </t>
+                      </select>
+                  </div>
+                  <div t-attf-class="form-group #{error.get('state_id') and 'has-error' or ''} col-lg-6">
+                      <label class="control-label" for="state_id" style="font-weight: normal">State / Province</label>
+                      <select name="state_id" class="form-control">
+                          <option value="">select...</option>
+                          <t t-foreach="states or []" t-as="state">
+                              <option t-att-value="state.id" style="display:none;" t-att-data-country_id="state.country_id.id" t-att-selected="state.id == checkout.get('state_id')"><t t-esc="state.name"/></option>
+                          </t>
+                      </select>
+                  </div>
+
+                  <div class="clearfix"/>
+
+                  <div class="form-group col-lg-12">
+                      <label>Shipping</label>
+                      <select name="shipping_id" class="form-control">
+                          <option value="0">Ship to the same address</option>
+                          <t t-foreach="shippings" t-as="shipping">
+                              <option t-att-value="shipping.id" t-att-selected="shipping.id == shipping_id"
+                                t-att-data-shipping_name="shipping.name"
+                                t-att-data-shipping_phone="shipping.phone"
+                                t-att-data-shipping_street="shipping.street"
+                                t-att-data-shipping_city="shipping.city"
+                                t-att-data-shipping_zip="shipping.zip"
+                                t-att-data-shipping_state_id="shipping.state_id and shipping.state_id.id"
+                                t-att-data-shipping_country_id="shipping.country_id and shipping.country_id.id"
+                                ><t t-esc="', '.join('\n'.join(shipping.name_get()[0][1].split(',')).split('\n')[1:])"/></option>
+                          </t>
+                          <option value="-1" t-att-selected="error and len(error) > 0 and shipping_id == -1">-- Create a new address --</option>
+                      </select>
+                  </div>
+              </div>
+              <div class="js_shipping row mb16" t-att-style="not shipping_id and 'display:none' or ''">
+                  <h3 class="oe_shipping col-lg-12 mt16">Shipping Information</h3>
+
+                  <div t-attf-class="form-group #{error.get('shipping_name') and 'has-error' or ''} col-lg-6">
+                      <label class="control-label" for="shipping_name">Name (Shipping)</label>
+                      <input type="text" name="shipping_name" class="form-control" t-att-value="checkout.get('shipping_name', '')" t-att-readonly="'readonly' if shipping_id &gt;= 0 else ''"/>
+                  </div>
+                  <div t-attf-class="form-group #{error.get('shipping_phone') and 'has-error' or ''} col-lg-6">
+                      <label class="control-label" for="shipping_phone">Phone</label>
+                      <input type="tel" name="shipping_phone" class="form-control" t-att-value="checkout.get('shipping_phone', '')" t-att-readonly="  'readonly' if shipping_id &gt;= 0 else ''"/>
+                  </div>
+                  <div t-attf-class="form-group #{error.get('shipping_street') and 'has-error' or ''} col-lg-6">
+                      <label class="control-label" for="shipping_street">Street</label>
+                      <input type="text" name="shipping_street" class="form-control" t-att-value="checkout.get('shipping_street', '')" t-att-readonly=" 'readonly' if shipping_id &gt;= 0 else ''"/>
+                  </div>
+                  <div class="clearfix"/>
+                  <div t-attf-class="form-group #{error.get('shipping_city') and 'has-error' or ''} col-lg-6">
+                      <label class="control-label" for="shipping_city">City</label>
+                      <input type="text" name="shipping_city" class="form-control" t-att-value="checkout.get('shipping_city', '')" t-att-readonly=" 'readonly' if shipping_id &gt;= 0 else ''"/>
+                  </div>
+                  <div t-attf-class="form-group #{error.get('shipping_zip') and 'has-error' or ''} col-lg-6">
+                      <label class="control-label" for="shipping_zip" style="font-weight: normal">Zip / Postal Code</label>
+                      <input type="text" name="shipping_zip" class="form-control" t-att-value="checkout.get('shipping_zip', '')" t-att-readonly=" 'readonly' if shipping_id &gt;= 0 else ''"/>
+                  </div>
+                  <div t-attf-class="form-group #{error.get('shipping_country_id') and 'has-error' or ''} col-lg-6">
+                      <label class="control-label" for="shipping_country_id">Country</label>
+                      <select name="shipping_country_id" class="form-control" t-att-disabled="  'disabled' if shipping_id &gt;= 0 else ''">
+                          <option value="">Country...</option>
+                          <t t-foreach="countries or []" t-as="country">
+                              <option t-att-value="country.id" t-att-selected="country.id == checkout.get('shipping_country_id')"><t t-esc="country.name"/></option>
+                          </t>
+                      </select>
+                  </div>
+                  <div t-attf-class="form-group #{error.get('shipping_state_id') and 'has-error' or ''} col-lg-6">
+                      <label class="control-label" for="shipping_state_id" style="font-weight: normal">State / Province</label>
+                      <select name="shipping_state_id" class="form-control" t-att-readonly="  'readonly' if shipping_id &gt;= 0 else ''">
+                          <option value="">State / Province...</option>
+                          <t t-foreach="states or []" t-as="state">
+                              <option t-att-value="state.id" style="display:none;" t-att-data-country_id="state.country_id.id" t-att-selected="state.id == checkout.get('shipping_state_id')"><t t-esc="state.name"/></option>
+                          </t>
+                      </select>
+                  </div>
+              </div>
+              <div class="clearfix">
+				  <t t-if="not current_country">
+					<a href="/shop/cart" class="btn btn-default mb32"><span class="fa fa-long-arrow-left"/> Return to Cart</a>
+                  </t>
+                  <t t-if="current_country">
+                    <a t-attf-href="/shop#{ '/cart/%s' % slug(current_country) or '' }#{check or ''}" class="btn btn-default mb32"><span class="fa fa-long-arrow-left"/> Return to Cart</a>
+                   </t>
+                <a class="btn btn-default btn-primary pull-right mb32 a-submit">Confirm <span class="fa fa-long-arrow-right"/></a>
+              </div>
+          </div>
+          <div class="col-lg-offset-1 col-lg-3 col-md-3 text-muted">
+			  
+              <t t-if="current_country">
+                  <h3 class="page-header mt16">Your Order <small><a t-attf-href="/shop#{ '/cart/%s' % slug(current_country) or '' }#{check or ''}"><span class="fa fa-arrow-right"/> change</a></small></h3>
+              </t>
+              <t t-if="not current_country">
+                  <h3 class="page-header mt16">Your Order <small><a href="/shop/cart"><span class="fa fa-arrow-right"/> change</a></small></h3>
+              </t>
+              <t t-set="website_sale_order" t-value="website.sale_get_order()"/>
+              <div class="row">
+                  <div class="col-sm-6 text-right">Subtotal: </div>
+                  <div class="col-sm-6"><span style="white-space: nowrap;" t-field="website_sale_order.amount_untaxed" t-field-options='{
+                      "widget": "monetary",
+                      "from_currency": "website_sale_order.pricelist_id.currency_id",
+                      "display_currency": "user_id.partner_id.property_product_pricelist.currency_id"
+                  }'/></div>
+                  <div class="col-sm-6 text-right">Taxes: </div>
+                  <div class="col-sm-6"><span style="white-space: nowrap;" t-field="website_sale_order.amount_tax" t-field-options='{
+                      "widget": "monetary",
+                      "from_currency": "website_sale_order.pricelist_id.currency_id",
+                      "display_currency": "user_id.partner_id.property_product_pricelist.currency_id"
+                  }'/></div>
+                  <div class="col-sm-6 text-right"><h4>Total To Pay: </h4></div>
+                  <div class="col-sm-6"><h4><span style="white-space: nowrap;" t-field="website_sale_order.amount_total" t-field-options='{
+                      "widget": "monetary",
+                      "from_currency": "website_sale_order.pricelist_id.currency_id",
+                      "display_currency": "user_id.partner_id.property_product_pricelist.currency_id"
+                  }'/></h4></div>
+              </div>
+          </div>
+      </div>
+      </form>
+      </t>
+
     </div>
     </div>
   </t>
@@ -1008,13 +1375,29 @@
 
 <template id="payment">
   <t t-call="website.layout">
+      <t t-if="current_country">
+          <div class="page-header products_pager">
+              <h1>Fair Market <a t-attf-href="/#{current_country.name}"><t t-esc="current_country.name"/></a>
+                  <p>
+                      <small>FairCoop Marketplace for The Fair Economy</small>
+                  </p>
+              </h1>
+          </div>
+      </t>
       <t t-set="additional_title">Shop - Select Payment Mode</t>
       <div id="wrap">
         <div class="container oe_website_sale">
 
           <ul class="wizard pull-right">
-              <li><a href="/shop/cart" class="text-success">Review Order<span class="chevron"></span></a></li>
-              <li><a href="/shop/checkout" class="text-success">Shipping &amp; Billing<span class="chevron"></span></a></li>
+			  <t t-if="current_country">
+              <li><a t-attf-href="/shop#{ '/cart/%s' % slug(current_country) or '' }" class="text-success">Review Order<span class="chevron"></span></a></li>
+              <li><a t-attf-href="/shop#{ '/checkout/%s' % slug(current_country) or '' }" class="text-success">Shipping &amp; Billing<span class="chevron"></span></a></li>
+          </t>
+              <t t-if="not current_country">
+                  <li><a href="/shop/cart" class="text-success">Review Order<span class="chevron"></span></a></li>
+                  <li><a href="/shop/checkout" class="text-success">Shipping &amp; Billing<span class="chevron"></span></a></li>
+              </t>
+              
               <li class="text-primary">Payment<span class="chevron"></span></li>
               <li class="text-muted">Confirmation<span class="chevron"></span></li>
           </ul>
@@ -1042,13 +1425,34 @@
                       <tr t-foreach="website_sale_order.website_order_line" t-as="line">
                           <td colspan="2" t-if="not line.product_id.product_tmpl_id"></td>
                           <td t-if="line.product_id.product_tmpl_id">
-                              <a t-attf-href="/shop/product/#{ slug(line.product_id.product_tmpl_id) }">
-                                  <span t-field="line.product_id.image_small"
-                                        t-field-options='{"widget": "image", "class": "img-rounded"}'/>
-                              </a>
+                              <t t-if="current_country">
+                                  <a t-attf-href="/shop/product/#{ slug(line.product_id.product_tmpl_id) }/#{(current_country['id'])}">
+                                      <span t-field="line.product_id.image_small"
+                                            t-field-options='{"widget": "image", "class": "img-rounded"}'/>
+                                  </a>
+                              </t>
+                              <t t-if="not current_country">
+                                  <a t-attf-href="/shop/product/#{ slug(line.product_id.product_tmpl_id) }">
+                                      <span t-field="line.product_id.image_small"
+                                            t-field-options='{"widget": "image", "class": "img-rounded"}'/>
+                                  </a>
+                              </t>
+
+
                           </td>
                           <td t-if="line.product_id.product_tmpl_id">
-                             <strong t-field="line.product_id.with_context(display_default_code=False).display_name"/>
+                              <t t-if="current_country">
+                                  <a t-attf-href="/shop/product/#{ slug(line.product_id.product_tmpl_id) }/#{(current_country['id'])}">
+                                      <strong t-field="line.product_id.with_context(display_default_code=False).display_name"/>
+
+                                  </a>
+                              </t>
+                              <t t-if="not current_country">
+                                  <a t-attf-href="/shop/product/#{ slug(line.product_id.product_tmpl_id) }">
+                                      <strong t-field="line.product_id.with_context(display_default_code=False).display_name"/>
+
+                                  </a>
+                              </t>
                           </td>
                           <td class="text-center">
                              <span t-field="line.price_unit" style="white-space: nowrap;" t-field-options='{
@@ -1074,8 +1478,12 @@
                     "fields": ["address", "name", "phone", "email"]
                     }'/>
                 <div>
-                  <a href="/shop/checkout"><span class="fa fa-arrow-right"/> Change Address</a>
-                </div>
+                    <t t-if="current_country">
+                        <a t-attf-href="/shop#{ '/checkout/%s' % slug(current_country) or '' }"><span class="fa fa-arrow-right"/> Change Address</a>
+                    </t>
+                    <t t-if="not current_country">
+                        <a href="/shop/checkout"><span class="fa fa-arrow-right"/> Change Address</a>
+                    </t>                </div>
                 <t>
                     <h4 class="mt32">Ship To:</h4>
                     <t t-if="website_sale_order.partner_shipping_id and website_sale_order.partner_shipping_id.id != website_sale_order.partner_invoice_id.id">
@@ -1086,8 +1494,12 @@
                     </t>
                     <address t-if="website_sale_order.partner_shipping_id.id == website_sale_order.partner_invoice_id.id">Ship to the same address</address>
                     <div class="mb32">
-                      <a href="/shop/checkout"><span class="fa fa-arrow-right"/> Change Address</a>
-                    </div>
+                        <t t-if="current_country">
+                            <a t-attf-href="/shop#{ '/checkout/%s' % slug(current_country) or '' }"><span class="fa fa-arrow-right"/> Change Address</a>
+                        </t>
+                        <t t-if="not current_country">
+                            <a href="/shop/checkout"><span class="fa fa-arrow-right"/> Change Address</a>
+                        </t>                    </div>
                 </t>
             </div>
           </div>

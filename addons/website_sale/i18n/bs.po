@@ -1,25 +1,25 @@
-# Translation of Odoo Server.
-# This file contains the translation of the following modules:
-# * website_sale
-# 
-# Translators:
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2015
+# Bosnian translation for openobject-addons
+# Copyright (c) 2015 Rosetta Contributors and Canonical Ltd 2015
+# This file is distributed under the same license as the openobject-addons package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2015.
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo 8.0\n"
-"Report-Msgid-Bugs-To: \n"
+"Project-Id-Version: openobject-addons\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2015-01-21 14:09+0000\n"
-"PO-Revision-Date: 2015-05-29 13:13+0000\n"
-"Last-Translator: Martin Trigaux\n"
-"Language-Team: Bosnian (http://www.transifex.com/projects/p/odoo-8/language/bs/)\n"
+"PO-Revision-Date: 2015-03-30 12:34+0000\n"
+"Last-Translator: Boško Stojaković <bluesoft83@gmail.com>\n"
+"Language-Team: Bosnian <bs@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
-"Language: bs\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2015-03-31 06:03+0000\n"
+"X-Generator: Launchpad (build 17413)\n"
 
 #. module: website_sale
-#: view:website:website_sale.cart view:website:website_sale.products_item
+#: view:website:website_sale.cart
+#: view:website:website_sale.products_item
 msgid "&nbsp;"
 msgstr "&nbsp;"
 
@@ -52,7 +52,19 @@ msgid ""
 "            a photo on categories for small (1024x768) screens.\n"
 "          </p>\n"
 "        "
-msgstr "<p class=\"oe_view_nocontent_create\">\n            Kliknite da kreirate novu kategoriju.\n          </p><p>\n            Kategorije se koriste za pregled proizvoda preko ekrana\n            osjetljivog na dodir.\n          </p><p>\n            Ako postavite sliku na kategoriju, raspored ekrana osjetljivog\n            na dodir će se automatski prilagoditi. Najbolje je da nestavljate\n            fotografije za ekrane manje od (1024x768) piksela.\n          </p>\n        "
+msgstr ""
+"<p class=\"oe_view_nocontent_create\">\n"
+"            Kliknite da kreirate novu kategoriju.\n"
+"          </p><p>\n"
+"            Kategorije se koriste za pregled proizvoda preko ekrana\n"
+"            osjetljivog na dodir.\n"
+"          </p><p>\n"
+"            Ako postavite sliku na kategoriju, raspored ekrana osjetljivog\n"
+"            na dodir će se automatski prilagoditi. Najbolje je da "
+"nestavljate\n"
+"            fotografije za ekrane manje od (1024x768) piksela.\n"
+"          </p>\n"
+"        "
 
 #. module: website_sale
 #: field:product.template,accessory_product_ids:0
@@ -60,7 +72,8 @@ msgid "Accessory Products"
 msgstr "Prateći proizvodi"
 
 #. module: website_sale
-#: view:website:website_sale.cart view:website:website_sale.product
+#: view:website:website_sale.cart
+#: view:website:website_sale.product
 msgid "Add to Cart"
 msgstr "Dodaj u korpu"
 
@@ -95,7 +108,8 @@ msgid "Available in the website"
 msgstr "Dostupno na websajtu"
 
 #. module: website_sale
-#: view:website:website_sale.confirmation view:website:website_sale.payment
+#: view:website:website_sale.confirmation
+#: view:website:website_sale.payment
 msgid "Bill To:"
 msgstr "Kupac:"
 
@@ -201,8 +215,10 @@ msgid "Confirm"
 msgstr "Potvrdi"
 
 #. module: website_sale
-#: view:website:website_sale.cart view:website:website_sale.checkout
-#: view:website:website_sale.confirmation view:website:website_sale.payment
+#: view:website:website_sale.cart
+#: view:website:website_sale.checkout
+#: view:website:website_sale.confirmation
+#: view:website:website_sale.payment
 msgid "Confirmation"
 msgstr "Potvrda"
 
@@ -281,7 +297,8 @@ msgid "Create your first product"
 msgstr "Kreirajte vaš prvi proizvod"
 
 #. module: website_sale
-#: field:product.public.category,create_uid:0 field:product.style,create_uid:0
+#: field:product.public.category,create_uid:0
+#: field:product.style,create_uid:0
 msgid "Created by"
 msgstr "Kreirao"
 
@@ -337,7 +354,7 @@ msgstr ""
 #. module: website_sale
 #: view:website:website_sale.checkout
 msgid "Email"
-msgstr "E-Mail"
+msgstr ""
 
 #. module: website_sale
 #. openerp-web
@@ -349,7 +366,7 @@ msgstr ""
 #. module: website_sale
 #: constraint:product.public.category:0
 msgid "Error ! You cannot create recursive categories."
-msgstr "Greška! Ne možete kreirati rekurzivne kategorije."
+msgstr ""
 
 #. module: website_sale
 #: view:website:website_sale.product
@@ -358,8 +375,9 @@ msgstr ""
 
 #. module: website_sale
 #: help:product.public.category,sequence:0
-msgid "Gives the sequence order when displaying a list of product categories."
-msgstr "Određuje poredak kod prikaza liste kategorije artikala."
+msgid ""
+"Gives the sequence order when displaying a list of product categories."
+msgstr ""
 
 #. module: website_sale
 #: field:product.style,html_class:0
@@ -386,17 +404,18 @@ msgstr ""
 #. module: website_sale
 #: selection:product.attribute,type:0
 msgid "Hidden"
-msgstr "Skriveno"
+msgstr ""
 
 #. module: website_sale
-#: field:product.public.category,id:0 field:product.style,id:0
+#: field:product.public.category,id:0
+#: field:product.style,id:0
 msgid "ID"
-msgstr "ID"
+msgstr ""
 
 #. module: website_sale
 #: field:product.public.category,image:0
 msgid "Image"
-msgstr "Slika"
+msgstr ""
 
 #. module: website_sale
 #. openerp-web
@@ -407,12 +426,14 @@ msgid ""
 msgstr ""
 
 #. module: website_sale
-#: field:product.public.category,write_uid:0 field:product.style,write_uid:0
+#: field:product.public.category,write_uid:0
+#: field:product.style,write_uid:0
 msgid "Last Updated by"
 msgstr ""
 
 #. module: website_sale
-#: field:product.public.category,write_date:0 field:product.style,write_date:0
+#: field:product.public.category,write_date:0
+#: field:product.style,write_date:0
 msgid "Last Updated on"
 msgstr ""
 
@@ -426,7 +447,7 @@ msgstr ""
 #. module: website_sale
 #: field:product.public.category,image_medium:0
 msgid "Medium-sized image"
-msgstr "Slika srednje veličine"
+msgstr ""
 
 #. module: website_sale
 #: help:product.public.category,image_medium:0
@@ -434,7 +455,7 @@ msgid ""
 "Medium-sized image of the category. It is automatically resized as a "
 "128x128px image, with aspect ratio preserved. Use this field in form views "
 "or some kanban views."
-msgstr "Slika kategorije srednje veličine. Automatski je promijenjena veličina na 128x128px sliku, sa zadržanim proporcijama, Ovo polje koristite u pogledima forme ili kanban pogledima."
+msgstr ""
 
 #. module: website_sale
 #: view:website:website.layout
@@ -445,7 +466,7 @@ msgstr ""
 #: field:product.public.category,complete_name:0
 #: field:product.public.category,name:0
 msgid "Name"
-msgstr "Ime"
+msgstr ""
 
 #. module: website_sale
 #: view:website:website_sale.checkout
@@ -483,12 +504,12 @@ msgstr ""
 #. module: website_sale
 #: view:website:website_sale.products
 msgid "Options"
-msgstr "Opcije"
+msgstr ""
 
 #. module: website_sale
 #: view:website:website_sale.confirmation
 msgid "Order"
-msgstr "Nalog"
+msgstr ""
 
 #. module: website_sale
 #: field:sale.order,website_order_line:0
@@ -505,12 +526,12 @@ msgstr ""
 #. module: website_sale
 #: model:product.public.category,name:website_sale.categ_others
 msgid "Others"
-msgstr "Ostali"
+msgstr ""
 
 #. module: website_sale
 #: field:product.public.category,parent_id:0
 msgid "Parent Category"
-msgstr "Izvorna kategorija"
+msgstr ""
 
 #. module: website_sale
 #: code:addons/website_sale/controllers/main.py:654
@@ -520,10 +541,12 @@ msgid "Pay Now"
 msgstr ""
 
 #. module: website_sale
-#: view:website:website_sale.cart view:website:website_sale.checkout
-#: view:website:website_sale.confirmation view:website:website_sale.payment
+#: view:website:website_sale.cart
+#: view:website:website_sale.checkout
+#: view:website:website_sale.confirmation
+#: view:website:website_sale.payment
 msgid "Payment"
-msgstr "Plaćanje"
+msgstr ""
 
 #. module: website_sale
 #: field:sale.order,payment_acquirer_id:0
@@ -543,7 +566,7 @@ msgstr ""
 #. module: website_sale
 #: view:website:website_sale.checkout
 msgid "Phone"
-msgstr "Telefon"
+msgstr ""
 
 #. module: website_sale
 #: view:website:website_sale.cart
@@ -553,17 +576,18 @@ msgstr ""
 #. module: website_sale
 #: view:website:website_sale.product
 msgid "Post"
-msgstr "Knjiži"
+msgstr ""
 
 #. module: website_sale
-#: view:website:website_sale.cart view:website:website_sale.payment
+#: view:website:website_sale.cart
+#: view:website:website_sale.payment
 msgid "Price"
-msgstr "Cijena"
+msgstr ""
 
 #. module: website_sale
 #: model:ir.model,name:website_sale.model_product_pricelist
 msgid "Pricelist"
-msgstr "Cjenovnik"
+msgstr ""
 
 #. module: website_sale
 #: view:website:website_sale.cart
@@ -572,9 +596,10 @@ msgstr ""
 
 #. module: website_sale
 #: model:ir.model,name:website_sale.model_product_product
-#: view:website:website_sale.cart view:website:website_sale.payment
+#: view:website:website_sale.cart
+#: view:website:website_sale.payment
 msgid "Product"
-msgstr "Proizvod"
+msgstr ""
 
 #. module: website_sale
 #: model:ir.model,name:website_sale.model_product_attribute
@@ -584,7 +609,7 @@ msgstr ""
 #. module: website_sale
 #: view:website:website_sale.product
 msgid "Product Name"
-msgstr "Naziv proizvoda"
+msgstr ""
 
 #. module: website_sale
 #: view:product.public.category:website_sale.product_public_category_tree_view
@@ -594,10 +619,11 @@ msgstr ""
 #. module: website_sale
 #: model:ir.model,name:website_sale.model_product_template
 msgid "Product Template"
-msgstr "Prijedlog proizvoda"
+msgstr ""
 
 #. module: website_sale
-#: view:website:website_sale.product view:website:website_sale.product_price
+#: view:website:website_sale.product
+#: view:website:website_sale.product_price
 msgid "Product not available"
 msgstr ""
 
@@ -609,7 +635,7 @@ msgstr ""
 #. module: website_sale
 #: view:website:website_sale.product
 msgid "Products"
-msgstr "Proizvodi"
+msgstr ""
 
 #. module: website_sale
 #: view:website:website_sale.products
@@ -666,9 +692,10 @@ msgid "Push up"
 msgstr ""
 
 #. module: website_sale
-#: view:website:website_sale.cart view:website:website_sale.payment
+#: view:website:website_sale.cart
+#: view:website:website_sale.payment
 msgid "Quantity"
-msgstr "Količina"
+msgstr ""
 
 #. module: website_sale
 #: selection:product.attribute,type:0
@@ -686,25 +713,27 @@ msgid "Return to the product list."
 msgstr ""
 
 #. module: website_sale
-#: view:website:website_sale.cart view:website:website_sale.checkout
-#: view:website:website_sale.confirmation view:website:website_sale.payment
+#: view:website:website_sale.cart
+#: view:website:website_sale.checkout
+#: view:website:website_sale.confirmation
+#: view:website:website_sale.payment
 msgid "Review Order"
 msgstr ""
 
 #. module: website_sale
 #: view:website:website_sale.products_item
 msgid "Sale"
-msgstr "Prodaja"
+msgstr ""
 
 #. module: website_sale
 #: field:payment.transaction,sale_order_id:0
 msgid "Sale Order"
-msgstr "Prodajni nalog"
+msgstr ""
 
 #. module: website_sale
 #: model:ir.model,name:website_sale.model_sale_order
 msgid "Sales Order"
-msgstr "Prodajna narudžba"
+msgstr ""
 
 #. module: website_sale
 #. openerp-web
@@ -733,7 +762,7 @@ msgstr ""
 #. module: website_sale
 #: selection:product.attribute,type:0
 msgid "Select"
-msgstr "Odaberi"
+msgstr ""
 
 #. module: website_sale
 #. openerp-web
@@ -755,15 +784,17 @@ msgstr ""
 #: field:product.public.category,sequence:0
 #: field:product.template,website_sequence:0
 msgid "Sequence"
-msgstr "Sekvenca"
+msgstr ""
 
 #. module: website_sale
-#: view:website:website_sale.confirmation view:website:website_sale.payment
+#: view:website:website_sale.confirmation
+#: view:website:website_sale.payment
 msgid "Ship To:"
 msgstr ""
 
 #. module: website_sale
-#: view:website:website_sale.checkout view:website:website_sale.confirmation
+#: view:website:website_sale.checkout
+#: view:website:website_sale.confirmation
 #: view:website:website_sale.payment
 msgid "Ship to the same address"
 msgstr ""
@@ -771,11 +802,13 @@ msgstr ""
 #. module: website_sale
 #: view:website:website_sale.checkout
 msgid "Shipping"
-msgstr "Prevoznik"
+msgstr ""
 
 #. module: website_sale
-#: view:website:website_sale.cart view:website:website_sale.checkout
-#: view:website:website_sale.confirmation view:website:website_sale.payment
+#: view:website:website_sale.cart
+#: view:website:website_sale.checkout
+#: view:website:website_sale.confirmation
+#: view:website:website_sale.payment
 msgid "Shipping & Billing"
 msgstr ""
 
@@ -788,7 +821,7 @@ msgstr ""
 #: view:website:website_sale.products
 #: model:website.menu,name:website_sale.menu_shop
 msgid "Shop"
-msgstr "Prodavnica"
+msgstr ""
 
 #. module: website_sale
 #: view:website:website_sale.checkout
@@ -818,7 +851,7 @@ msgstr ""
 #. module: website_sale
 #: view:website:website_sale.products
 msgid "Size"
-msgstr "Veličina"
+msgstr ""
 
 #. module: website_sale
 #: field:product.template,website_size_x:0
@@ -846,8 +879,8 @@ msgstr ""
 #: help:product.public.category,image_small:0
 msgid ""
 "Small-sized image of the category. It is automatically resized as a 64x64px "
-"image, with aspect ratio preserved. Use this field anywhere a small image is"
-" required."
+"image, with aspect ratio preserved. Use this field anywhere a small image is "
+"required."
 msgstr ""
 
 #. module: website_sale
@@ -875,7 +908,7 @@ msgstr ""
 #. module: website_sale
 #: view:website:website_sale.checkout
 msgid "Street"
-msgstr "Ulica"
+msgstr ""
 
 #. module: website_sale
 #: field:product.style,name:0
@@ -891,7 +924,7 @@ msgstr ""
 #. module: website_sale
 #: view:website:website_sale.checkout
 msgid "Subtotal:"
-msgstr "Međuzbroj:"
+msgstr ""
 
 #. module: website_sale
 #: view:website:website_sale.product
@@ -909,9 +942,10 @@ msgid "Taxes may be updated after providing shipping address"
 msgstr ""
 
 #. module: website_sale
-#: view:website:website_sale.checkout view:website:website_sale.total
+#: view:website:website_sale.checkout
+#: view:website:website_sale.total
 msgid "Taxes:"
-msgstr "Porezi:"
+msgstr ""
 
 #. module: website_sale
 #: view:website:website_sale.confirmation
@@ -958,7 +992,7 @@ msgstr ""
 #. module: website_sale
 #: view:website:website_sale.total
 msgid "Total:"
-msgstr "Ukupno:"
+msgstr ""
 
 #. module: website_sale
 #: field:sale.order,payment_tx_id:0
@@ -968,7 +1002,7 @@ msgstr ""
 #. module: website_sale
 #: field:product.attribute,type:0
 msgid "Type"
-msgstr "Vrsta"
+msgstr ""
 
 #. module: website_sale
 #. openerp-web
@@ -996,7 +1030,7 @@ msgstr ""
 #: model:ir.model,name:website_sale.model_website
 #: view:product.template:website_sale.product_template_form_view
 msgid "Website"
-msgstr "Web stranica"
+msgstr ""
 
 #. module: website_sale
 #: field:product.template,website_message_ids:0
@@ -1024,7 +1058,8 @@ msgid "Website meta title"
 msgstr ""
 
 #. module: website_sale
-#: field:product.product,website_url:0 field:product.template,website_url:0
+#: field:product.product,website_url:0
+#: field:product.template,website_url:0
 msgid "Website url"
 msgstr ""
 
@@ -1090,7 +1125,7 @@ msgstr ""
 #. module: website_sale
 #: view:website:website_sale.checkout
 msgid "change"
-msgstr "promjena"
+msgstr ""
 
 #. module: website_sale
 #: view:website:website_sale.cart
@@ -1120,12 +1155,12 @@ msgstr ""
 #. module: website_sale
 #: view:website:website_sale.product
 msgid "on"
-msgstr "na"
+msgstr ""
 
 #. module: website_sale
 #: view:website:website_sale.checkout
 msgid "or"
-msgstr "ili"
+msgstr ""
 
 #. module: website_sale
 #: view:website:website_sale.products
