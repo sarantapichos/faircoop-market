@@ -9,26 +9,9 @@ To read more about FairCoop: https://fair.coop/
 
 
 ## How to participate
-### Setup Git and generate your ssh keys
-```
-git config --global user.name "YOUR NAME"
-git config --global user.email "YOUR EMAIL ADDRESS"
-ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
-eval "$(ssh-agent -s)"
-```
-Look at https://help.github.com/articles/set-up-git/ for more info
-
-### Create a Github account
-Create a github account and upload your public key (~/.ssh/id_rsa.pub)
-For more info: https://help.github.com/articles/generating-ssh-keys/
 
 ### Setup for running FairMarket which runs on Odoo
 
-First, make sure sudo is installed. Our work user will need it. If logged in as  root:
-```
-apt-get update && apt-get upgrade  # Install system updates
-apt-get install sudo  # Make sure 'sudo' is installed
-```
 The following commands will create an  odoo  user:
 ```
 useradd -m -g sudo -s /bin/bash odoo  # Create an 'Odoo' user with sudo powers
@@ -52,18 +35,24 @@ mkdir ~/odoo-dev  # Create a directory to work in
 cd ~/odoo-dev  # Go into our work directory
 ```
 
-###  Fork fairmarket and clone
-
-First fork this project
+Clone repository
 ```
-git clone git@github.com:<your name>/faircoop-market.git  # Get Fairmarket source code
+git clone https://github.com/dkoukoul/faircoop-market.git
+```
+Set up Odoo
+```
 ./odoo/odoo.py setup_deps  # Installs Odoo system dependencies
 ./odoo/odoo.py setup_pg  # Installs PostgreSQL & db superuser for unix user
 ```
+
+Set up Fairmarket
+```
+createdb odoodb #To make a database in postresql
+psql -f data/pg_dumpall_FairMarket odoodb #To restore the database to postgresql. 
+```
+
 At the end, Fairmarket-Odoo should be ready to be used. The  ~  symbol is a shortcut for your home
 directory (for example,  /home/odoo ).
-
-### Set up Odoo for Fairmarket
 
 Now we can log in as the new user and set up Odoo.
 
