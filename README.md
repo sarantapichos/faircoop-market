@@ -35,19 +35,21 @@ mkdir ~/odoo-dev  # Create a directory to work in
 cd ~/odoo-dev  # Go into our work directory
 ```
 
-Clone repository
+####Clone repository
 ```
-git clone https://github.com/dkoukoul/faircoop-market.git
+git clone https://github.com/sarantapichos/faircoop-market
 ```
-Set up Odoo
+
+####Set up Odoo
 ```
 ./odoo/odoo.py setup_deps  # Installs Odoo system dependencies
 ./odoo/odoo.py setup_pg  # Installs PostgreSQL & db superuser for unix user
 ```
 
-Set up Fairmarket
+####Set up Fairmarket
 ```
 createdb odoodb #To make a database in postresql
+createdb odootestdb
 psql -f data/pg_dumpall_FairMarket odoodb #To restore the database to postgresql. 
 ```
 
@@ -59,13 +61,7 @@ Now we can log in as the new user and set up Odoo.
 Now you can work with the local FairMarket. 
 
 http://127.0.0.1:8069
-
 You can login with the following users:
-
 admin (administrator).
-
 FairMarket@fairmarket.net (owner of the company FairMarketDocumenter for testing).
-
 Password for the users: Fair.
-
-```
